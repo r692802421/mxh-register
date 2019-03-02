@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>微信注册成为美胸汇会员</title>
+    <link rel="stylesheet" href="css/resetCss.css">
+    <link rel="stylesheet" href="css/phone_register.css">
+    <script>
+        document.documentElement.style.fontSize = (document.documentElement.clientWidth || window.innerWidth || window.body.clientWidth) / 750 * 100 + "px";
+    </script>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+</head>
+
+<body>
+
+    <!--提示框-->
+    <div class="tip_t"></div>
+    <script type="text/javascript">
+        var invitation = getUrlParam('invitation'); //邀请码
+        if (invitation == null || invitation == '') {
+            invitation = "";
+        }
+        /**
+         * 获取参数值.
+         */
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数值
+        }
+    </script>
+    <script>
+        window.onload = function () {
+            var serverUrl = "app.meibbc.com/BeautifyBreast";
+            var Appid = "wx7ee90195b0f6646c";
+            var redirectUrl = 'http%3A%2F%2F' + serverUrl + '/app/register/wx_register.html';
+            var Scope = "snsapi_userinfo ";
+            // %3A%2F%2F https://中的s://的转义符
+            // direct_uri中业务链接后面带的业务参数个数一般不限制，有多个的时候参数与参数之间用转义符%26连接
+            // https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx7ee90195b0f6646c&redirect_uri=http%3A%2F%2Fapp.meibbc.com/BeautifyBreast&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
+            location.href = ' https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + Appid + '&redirect_uri=' + redirectUrl + '&response_type=code&scope=' + Scope + '&state=STATE#wechat_redirect';
+            // console.log(location.href);
+            //用点击了同意获取code
+            if (window.location.href.indexOf('code') > 0) {
+                window.location.href = redirectUrl + '/?code=CODE&state=STATE';
+                var codeurl = location.search;
+                var codeobj = {};
+                codeurl = codeurl.substr(1);
+                var codearr = codeurl.split("&");
+                for (let i = 0; i < codearr.length; i++) {
+                    var temp = codearr[i].split("=");
+                    codeobj[temp[0]] = temp[1]
+                }
+                var Code = codeobj.code;
+                alert("code",Code);
+                $.ajax({
+                    type: "post",
+                    async: false,
+                    url: "http://app.meibbc.com/BeautifyBreast/webautho/registerByWx",
+                    dataType: "json",
+                    data: { code: Code },
+                    success: function (res) {
+                        var qstr = res.data;
+                        alert("status", res.status,
+                            "msg", res.msg,
+                            "data", qstr);
+                        $.ajax({
+                            type: "post",
+                            async: false,
+                            url:"http://app.meibbc.com/BeautifyBreast/api/v1/user/getUser",
+                            dataType: "json",
+                            data: { wxid: qstr },
+                            success: function (res) {
+                                alert("status", res.status, "msg", res.msg, "data", res.data);
+                            }
+                        })
+                    },
+                })
+            }
+        }
+    </script>
+</body>
+
+</html>

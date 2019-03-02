@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文章详情</title>
+    <!-- <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.2/??flexible_css.js,flexible.js"></script> -->
+    <script>
+    !function(){var a="@charset \"utf-8\";html{color:#000;background:#fff;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}html *{outline:0;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}html,body{font-family:sans-serif}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{margin:0;padding:0}input,select,textarea{font-size:100%}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}abbr,acronym{border:0;font-variant:normal}del{text-decoration:line-through}address,caption,cite,code,dfn,em,th,var{font-style:normal;font-weight:500}ol,ul{list-style:none}caption,th{text-align:left}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:500}q:before,q:after{content:''}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}a:hover{text-decoration:underline}ins,a{text-decoration:none}",b=document.createElement("style");if(document.getElementsByTagName("head")[0].appendChild(b),b.styleSheet)b.styleSheet.disabled||(b.styleSheet.cssText=a);else try{b.innerHTML=a}catch(c){b.innerText=a}}();!function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));
+    </script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: calc(100% - (.625rem / 2));
+            background-color: #F6F6F6;
+            min-width: 320px;
+            padding-top: calc(.625rem / 2);
+        }
+
+        .shareContainer {
+            width: 100%;
+            height: 100%;
+            max-width: 768px;
+            margin: 0 auto;
+        }
+
+        .articleCard {
+            width: 93.6%;
+            background-color: #fff;
+            border-radius: 5px;
+            margin: 0 auto .625rem;
+            padding-bottom: calc(.9375rem / 2);
+        }
+
+        .articleTitle {
+            font-size: 16px;
+            padding: calc(.9375rem / 2) calc(.9375rem / 2) 0;
+        }
+
+        .cardBox {
+            width: calc(14.0625rem / 2);
+            height: calc(7.5rem / 2);
+            background-color: red;
+            border-radius: 5px;
+            margin: 0 auto;
+            margin-top: calc(2.8125rem / 2);
+            position: relative;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-image: url('bg.png');
+        }
+
+        .userIcon {
+            width: calc(3.125rem / 2);
+            height: calc(3.125rem / 2);
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: auto;
+            top: calc(-1.25rem / 2);
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .personsCard {
+            width: calc(93.6% - ((.9375rem / 2) * 2));
+            height: calc(14.1875rem / 4);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 0;
+            padding: 0 calc(.9375rem / 2);
+        }
+
+        .leftBox {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .userInfo {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .p_userIcon {
+            width: calc(7.5rem / 4);
+            height: calc(7.5rem / 4);
+            border-radius: 50%;
+            margin-right: calc(1.8125rem / 4);
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .rightBox {
+            width: calc(8.4375rem / 4);
+            height: calc(8.4375rem / 4);
+            background-size: cover;
+        }
+
+        .userName {
+            color: #303030;
+            font-size: calc(32px / 2);
+            margin-bottom: calc(.9375rem / 4);
+        }
+
+        .userNumber {
+            color: #909090;
+            font-size: calc(32px / 2);
+        }
+
+        .articleContent img {
+            max-width: 100% !important;
+            margin: .625rem 0;
+        }
+
+        .articleContent {
+            padding: 0 .9375rem;
+            margin-top: .9375rem;
+        }
+
+        .a_userName {
+            font-size: 16px;
+            top: calc(2.6875rem / 2);
+        }
+
+        .a_signature {
+            font-size: 14px;
+            top: calc(4.25rem / 2)
+        }
+
+        .a_userName,
+        .a_signature {
+            color: #fff;
+            width: calc((14.0625rem / 2) - 1.875rem);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: center;
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        .remark {
+            top: calc(6rem / 2);
+            font-size: 14px;
+        }
+
+        @media screen and (min-resolution : 2dppx) {
+            .articleTitle {
+                font-size: calc(16px - (16px * 0.1));
+            }
+
+            .userName,
+            .userNumber {
+                font-size: calc((32px / 2) - ((32px / 2) * 0.1));
+            }
+        }
+
+
+        @media screen and (min-resolution : 2.65dppx) {
+            .articleTitle {
+                font-size: calc(16px - (16px * 0.165));
+            }
+
+            .userName,
+            .userNumber {
+                font-size: calc((32px / 2) - ((32px / 2) * 0.165));
+            }
+        }
+
+
+        @media screen and (min-resolution : 3dppx) {
+            .articleTitle {
+                font-size: 16px;
+            }
+
+            .userName,
+            .userNumber {
+                font-size: calc(32px / 2);
+            }
+        }
+
+        @media screen and (min-resolution : 3.5dppx) {
+            .articleTitle {
+                font-size: calc(16px + (16px * 0.05));
+            }
+
+            .userName,
+            .userNumber {
+                font-size: calc((32px / 2) + ((32px / 2) * 0.05));
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="shareContainer">
+        <section class="articleCard">
+            <!-- 文章标题 -->
+            <p class="articleTitle"></p>
+
+            <!-- 用户相关 -->
+            <section class="cardBox">
+                <div class="userIcon"></div>
+                <div class="a_userName"></div>
+                <div class="a_signature a_signature2"></div>
+                <div class='a_signature remark'></div>
+            </section>
+
+            <!-- 文章主体内容 -->
+            <section class="articleContent">
+
+            </section>
+        </section>
+
+        <!-- 用户卡片 -->
+        <section class="articleCard personsCard">
+            <div class="leftBox">
+                <div class="p_userIcon"></div>
+                <div class="userInfo">
+                    <p class="userName"></p>
+                    <p class="userNumber"></p>
+                </div>
+            </div>
+            <div class="rightBox"></div>
+        </section>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $(function () {
+            let requestAddress = 'https://appmini.meibbc.com/zxxcxsv'
+
+            //获取URL参数
+            function GetRequest() {
+                var url = location.search; //获取url中"?"符后的字串
+                var theRequest = new Object();
+                if (url.indexOf("?") != -1) {
+                    var str = url.substr(1);
+                    strs = str.split("&");
+                    for (var i = 0; i < strs.length; i++) {
+                        theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                    }
+                }
+                return theRequest;
+            }
+
+            var Request = new Object();
+            Request = GetRequest();
+
+            //文章信息请求
+            function initPage(userId,articleId){
+                $.ajax({
+                    type: "get",
+                    url: requestAddress + '/article/findArticleById?userId=' + userId + '&articleId=' + articleId,
+                    success: function (res) {
+                        $('.articleTitle').text(res.data.articleTitle);
+                        $('.articleContent').html(res.data.articleContent)
+
+                        if (res.data.articleCommentDto == null) {
+                            $('.remark').hide()
+                        } else {
+                            $('.remark').text('评语：' + res.data.articleCommentDto.comment)
+                        }
+
+                        if (res.data.articleUserInfo.signature == null) {
+                            $('.a_signature2').hide()
+                        } else {
+                            $('.a_signature2').text(res.data.articleUserInfo.signature)
+                        }
+
+                        //用户信息
+                        $('.userName, .a_userName').text(res.data.articleUserInfo.username);
+                        $('.userNumber').text(res.data.articleUserInfo.phone);
+
+                        if (res.data.articleUserInfo.avatarUrl != null && res.data.articleUserInfo.avatarUrl != '') {
+                            $('.userIcon, .p_userIcon').css('background-image', 'url(' + res.data.articleUserInfo.avatarUrl + ')');
+                        } else {
+                            $('.userIcon, .p_userIcon').css('background-image', 'url(morentouxiang.png)');
+                        }
+                        
+                        $('.rightBox').css('background-image', 'url(' + res.data.articleUserInfo.qrcodeUrl + ')');
+                    }
+                });
+            }
+
+            initPage(Request['userId'],Request['articleId'])
+
+            localStorage.setItem("userId", Request['userId']);
+            localStorage.setItem("articleId", Request['articleId']);
+            localStorage.setItem("pitchOn", Request['pitchOn']);
+
+            //对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
+            var useragent = navigator.userAgent;
+            if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+                $.ajax({
+                    type: "post",
+                    jsonpCallback: "res",/*设置一个回调函数，名字随便取，和下面的函数里的名字相同就行*/
+                    url: requestAddress + "/article/recordBrowseUserNum?browseWay=4&userId=" + Request['userId'] + "&articleId=" + Request['articleId'] + "&browseUserId=0&shareSource=" + Request['pitchOn'],
+                    success: function (res) {}
+                });
+            } else {
+                var appid = 'wx7ee90195b0f6646c' // appid
+                var url = requestAddress + '/share/article/index.html?userId=' + localStorage.getItem("userId") + '%26articleId=' + localStorage.getItem("articleId") + '%26pitchOn=' + localStorage.getItem("pitchOn");
+                var scope = 'snsapi_userinfo' // snsapi_base静默授权，snsapi_userinfo弹出授权页面
+                var state = '' // 重定向带的参数
+                if (window.location.href.indexOf('code') < 0) {
+                    window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appid + '&redirect_uri=' + url + '&response_type=code&scope=' + scope + '&state='+state+'#wechat_redirect'
+                }
+
+                var parameterA = Request['userId']
+                var parameterB = Request['articleId']
+                var parameterC = Request['pitchOn']
+
+                initPage(parameterA,parameterB)
+
+                if (Request['code'].length > 0 || Request['code'] != undefined || Request['code'] != null || Request['code'] != '') {
+
+                    $.ajax({
+                        type: "post",
+                        url: requestAddress + "/user/getTempUserInfo",
+                        data: { authCode: Request['code'] },
+                        success: function (res) {
+                            if (res.data == null) {
+                                $.ajax({
+                                    type: "post",
+                                    url: requestAddress + "/article/recordBrowseUserNum?browseWay=3&userId="
+                                        + parameterA + "&articleId=" + parameterB + "&browseUserId=0&shareSource=" + parameterC,
+                                    success: function (res) {} 
+                                });
+                            } else {
+                                $.ajax({
+                                    type: "post",
+                                    url: requestAddress + "/article/recordBrowseUserNum?browseWay=2&userId="
+                                        + parameterA + "&articleId=" + parameterB + "&browseUserId=" + res.data.userId + '&shareSource=' + parameterC,
+                                    success: function (res) { }
+                                });
+                            }
+                        }
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

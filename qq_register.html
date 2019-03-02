@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>QQ注册成为美胸汇会员</title>
+    <link rel="stylesheet" href="css/resetCss.css">
+    <link rel="stylesheet" href="css/phone_register.css">
+    <script>
+        document.documentElement.style.fontSize = (document.documentElement.clientWidth||window.innerWidth||window.body.clientWidth)/750*100+"px";
+    </script>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <div class="register">
+        <div class="logo">
+            <img src="icon/logo.png" alt="">
+        </div>
+        <div class="phone">
+            <input type="text"  placeholder="请输入邮箱">
+        </div>
+        <div class="verification">
+            <div>
+                <input type="text" maxlength="4" placeholder="请输入验证码" class="valCode">
+            </div>
+            <input type="button" class="time" value="获取验证码">
+        </div>
+
+        <div class="pwd">
+            <input type="password" placeholder="请输入6-16位的密码" class="valCode" >
+            <img src="icon/noeyes.png" alt="">
+        </div>
+        <h5>6-16位字符，可包含数字，字母（区分大小写）</h5>
+        <h6>
+            <img src="icon/round.png" alt="">我已阅读并同意 <span><a href="agreement.htm">《注册协议》</a></span>
+        </h6>
+        <div class="btn_content">
+            <!--  <input type="button" class="btn" value="确定" disabled>-->
+            <div class="btn">确定</div>
+            <div></div>
+        </div>
+    </div>
+    <!--注册成功-->
+
+    <div class="success">
+        <div class="success_logo">
+            <img src="icon/success.png" alt="">
+        </div>
+        <p>恭喜您，账号注册成功啦！</p>
+        <p>亲爱的<span class="niceName">132465789</span>,欢迎您!</p>
+        <div class="download">
+            立即下载APP
+        </div>
+    </div>
+</div>
+<!--提示框-->
+<div class="tip_t"></div>
+<script type="text/javascript">
+var invitation = getUrlParam('invitation'); //邀请码
+if(invitation==null||invitation==''){
+	invitation="";
+}
+/**
+ * 获取参数值.
+ */
+ function getUrlParam(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+    if (r != null) return unescape(r[2]); return null; //返回参数值
+}
+</script>
+<script>
+    $(function(){
+        // var baseUrl ="http://testuser.meibbc.com/dev";
+        var baseUrl ="http://192.168.0.42:8081/dev";
+        // var codeUrl = "../../user-core/user/controller/UserController.html?behavior=checkPhoneSend";
+        var codeUrl = baseUrl+"/api/v1/user/checkPhoneOrEmailNotExitSend";
+        // var codeUrl = baseUrl+"/api/v1/user/checkPhoneOrEmail";
+        var requestUrl = baseUrl+"/api/v1/user/emailRegistered";
+        var reg = /^[0-9A-Za-z][\.-_0-9A-Za-z]*@[0-9A-Za-z]+(\.[0-9A-Za-z]+)+$/;
+
+        var androidUrl ="http://a.app.qq.com/o/simple.jsp?pkgname=com.ruixing.bbc";
+        var iosUrl ="http://itunes.apple.com/app/id1168544548";
+
+       	$(".download").click(function(){
+       	      var ua = navigator.userAgent.toLowerCase();
+       	      if (/iphone|ipad|ipod/.test(ua)) {
+       	         window.location.href = iosUrl;
+       	      } else if (/android/.test(ua)) {
+       	          window.location.href = androidUrl;
+       	      }
+       	 });
+        /*
+         *@ 自定义提示框
+         */
+        function tip(str){
+            $(".tip_t").html(str);
+            $(".tip_t").addClass("fade");
+            setTimeout(function(){
+                $(".tip_t").removeClass("fade");
+            },2000);
+        }
+
+        /*
+         *@发送验证码倒计时
+         */
+        var countdown=120;
+        function settime(obj) { //发送验证码倒计时
+            if (countdown == 0) {
+                obj.attr('disabled',false);
+                //obj.removeattr("disabled");
+                obj.val("获取验证码");
+                countdown = 120;
+                return;
+            } else {
+                obj.attr('disabled',true);
+                obj.val("重新发送(" + countdown + ")");
+                countdown--;
+            }
+            setTimeout(function() {
+                        settime(obj) }
+                    ,1000)
+        }
+        function sendemail(){
+            var obj = $(".time");
+            settime(obj);
+        }
+        $(".time").click(function(){
+            var number = $(".phone input").val();
+			if(number==''||number==null){
+				tip("请输入邮箱");
+				return;
+			}
+            if(!reg.test(number)){
+                tip("请输入正确邮箱");
+            }else {
+                var em ={
+                    email:$(".phone input").val(),
+                    istrue:true
+                };
+                console.log(123);
+                $.post(codeUrl,em,function(result){
+                    console.log("houtai");
+                    
+                    if(result.status!=-1){
+                        tip(result.msg);
+                        sendemail();
+                    }else if(result.status==-1){
+                    	tip(result.msg);
+                    } else{
+                        tip("网络错误请重试！");
+                    }
+                });
+
+            }
+
+        });
+
+        /*
+         * 已经阅读注册协议
+         */
+        $("h6 img").click(function(){
+            if($("h6 img").attr("src") == "icon/round.png"){
+                $("h6 img").attr("src","icon/already.png");
+                $(".btn_content div:nth-of-type(2)").css({"display":"none"});
+                $(".btn").attr('disabled',false);
+            }else{
+                $("h6 img").attr("src","icon/round.png");
+                $(".btn_content div:nth-of-type(2)").css({"display":"block"});
+                $(".btn").attr('disabled',true);
+            }
+        });
+
+
+        /*
+         *@密码明文与密文
+         */
+        $(".pwd img").click(function () {
+            if($(".pwd img").attr("src") == "icon/noeyes.png"){
+                $(".pwd img").attr("src","icon/eyes.png");
+                $(".pwd input").prop("type","text");
+            }else{
+                $(".pwd img").attr("src","icon/noeyes.png");
+
+                $(".pwd input").prop("type","password");
+            }
+        });
+
+
+        /*
+         *@确认注册
+         */
+        $(".btn").click(function(){
+            if(!reg.test($(".phone input").val())){
+                tip("邮箱地址不正确！")
+            }else {
+            	if($(".valCode").val()==''||$(".valCode").val()==null||$(".valCode").val().length!=4){
+                	if($(".valCode").val()==''||$(".valCode").val()==null){
+                		 tip("请输入验证码");
+                	}else{
+                		 tip("验证码只有4位");
+                	}
+                }else {
+                    if($(".pwd input").val().length<6||$(".pwd input").val().length>16){
+                        tip("密码必须6-16位以内");
+                    }else {
+                    	if(invitation!=null&&invitation!=''){
+                        var data={
+                            email:$(".phone input").val(),
+                            password:$(".pwd input").val(),
+                            code:$(".valCode").val(),
+                            invitation:invitation
+                        };
+                        $.post(requestUrl,data,function(result){
+                            console.log(result);
+                            
+                            if(result.status == "1"){
+                                $(".register").css({"display":"none"});
+                                var str = $(".phone input").val();
+                                var strOne = str.substring(0,3);
+                                var strTwo = str.substring(7);
+                                str = strOne+"****"+strTwo;
+                                $(".niceName").html(str);
+                                $(".success").css({"display":"block"});
+                            }else {
+                                tip(result.msg);
+                            }
+                        });
+                     }else{
+                    	 alert('您的邀请码为空');
+                     }
+                    }
+                }
+
+            }
+
+        });
+    })
+</script>
+<script>
+    window.onload = function (ev) {
+        var url = location.href.split('#').toString();//url不能写死
+
+        $.ajax({
+            type: "get",
+            url: "http://app.meibbc.com/BeautifyBreast/questionnaire!getdata.action",
+            dataType: "json",
+            async: false,
+            data: {url: url},
+            success: function (data) {
+                wx.config({
+                    debug: false,////生产环境需要关闭debug模式
+                    appId: "wx7ee90195b0f6646c",//appId通过微信服务号后台查看
+                    timestamp: data.timestamp,//生成签名的时间戳
+                    nonceStr: data.nonceStr,//生成签名的随机字符串
+                    signature: data.signature,//签名
+                    jsApiList: [//需要调用的JS接口列表
+                        'checkJsApi',//判断当前客户端版本是否支持指定JS接口
+                        'onMenuShareTimeline',//分享给好友
+                        'onMenuShareAppMessage'//分享到朋友圈
+                    ]
+                });
+            },
+            error: function (xhr, status, error) {
+                //alert(status);
+                //alert(xhr.responseText);
+            }
+        });
+
+
+
+        wx.ready(function () {
+            var link = window.location.href;
+            var protocol = window.location.protocol;
+            var host = window.location.host;
+            //分享朋友圈
+            wx.onMenuShareTimeline({
+                title: "注册成为美胸汇会员",
+                link: link,
+                imgUrl: "https://beautify-breast.oss-cn-shenzhen.aliyuncs.com/BeautifyBreast/file/images/logo.png",// 自定义图标
+                trigger: function (res) {
+                    // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回.
+                    //alert('click shared');
+                },
+                success: function (res) {
+                    //alert('shared success');
+                    //some thing you should do
+                },
+                cancel: function (res) {
+                    //alert('shared cancle');
+                },
+                fail: function (res) {
+                    //alert(JSON.stringify(res));
+                }
+            });
+            //分享给好友
+            wx.onMenuShareAppMessage({
+                title: "注册成为美胸汇会员", // 分享标题
+                desc: '美胸汇，让你更美！', // 分享描述
+                link: link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                imgUrl: "https://beautify-breast.oss-cn-shenzhen.aliyuncs.com/BeautifyBreast/file/images/logo.png", // 自定义图标
+                type: 'link', // 分享类型,music、video或link，不填默认为link
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+
+            wx.error(function (res) {
+                //alert(res.errMsg);
+            });
+        });
+
+
+    }
+</script>
+</body>
+</html>

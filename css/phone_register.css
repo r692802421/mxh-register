@@ -1,0 +1,231 @@
+.wrap{
+    margin: 0 0.8rem;
+}
+.register{
+    /*display: none;*/
+}
+.phone_wrap{
+    /*display: none;*/
+}
+.logo{
+    text-align: center;
+    margin: 0.8rem 0 1.10rem;
+}
+.logo img{
+    width: 1.78rem;
+    height: 1.78rem;
+}
+select{
+    border: 0;
+    background-color: transparent;
+    outline: none;
+    font-size:0.28rem;
+    font-family:PingFang-SC-Bold;
+    color:rgba(48,48,48,1);
+}
+.phone{
+    width: 100%;
+    border-bottom: 0.03rem solid #F66092;
+    padding-bottom: 0.2rem;
+    padding-left: 0.2rem;
+    box-sizing: border-box;
+}
+.phone input{
+    width: 70%;
+}
+.phone input,.verification>div input:nth-of-type(1), .pwd input{
+    border: 0;
+    outline: none;
+    background-color: transparent;
+    font-size:0.28rem;
+    font-family:PingFang-SC-Bold;
+    color:rgba(162,162,162,1);
+}
+.verification{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.3rem;
+    /*background-color: #F66092;*/
+}
+.verification>div:nth-of-type(1){
+    width:3.21rem;
+    padding-left: 0.2rem;
+    border-bottom: 0.03rem solid #F66092;
+    box-sizing: border-box;
+    /*height: 0.3rem;*/
+}
+.verification>div:nth-of-type(1) input{
+    position: relative;
+    top:-0.2rem;
+    text-align: left;
+}
+.verification input:nth-of-type(1){
+    width:1.96rem;
+    /*height:0.73rem;*/
+    border:0.03rem solid rgba(255,129,171,1);
+    border-radius: 8px;
+    font-size:0.28rem;
+    font-family:PingFang-SC-Bold;
+    color:rgba(255,129,171,1);
+    line-height: 0.73rem;
+    text-align: center;
+    margin-right: 0.2rem;
+    background-color: transparent;
+    outline: 0;
+}
+.pwd{
+    padding-left: 0.2rem;
+    border-bottom: 0.03rem solid #F66092;
+    padding-bottom: 0.2rem;
+    box-sizing: border-box;
+}
+.pwd input{
+    width: 80%;
+}
+.pwd img{
+    width: 0.38rem;
+    height: 0.28rem;
+}
+h5{
+    margin-top: 0.2rem;
+    margin-left: 0.2rem;
+    font-size:0.22rem;
+    font-family:PingFang-SC-Bold;
+    color:rgba(162,162,162,1);
+    /*line-height:0px;*/
+}
+h6{
+    padding-left:0.2rem;
+    margin-top: 1.09rem;
+    font-size:.24rem;
+    font-family:PingFang-SC-Bold;
+    color:rgba(48,48,48,1);
+}
+h6 img{
+    width: 0.28rem;
+    right:0.28rem;
+    margin-right: 0.1rem;
+    vertical-align:top;
+}
+h6 span{
+    color: #62A5FF;
+}
+.btn_content{
+    position: relative;
+    margin-top: 0.6rem;
+}
+.btn_content div:nth-of-type(2){
+    position: absolute;
+    border: 0;
+    top:0;
+    width: 5.88rem;
+    height:0.86rem;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.2);
+}
+.btn{
+    border: none;
+    outline: none;
+    width: 5.88rem;
+    height:0.88rem;
+    background:rgba(255,129,172,1);
+    border-radius: 10px;
+    text-align: center;
+    line-height: 0.88rem;
+    font-size:0.36rem;
+    font-family:PingFang-SC-Bold;
+    color:rgba(255,255,255,1);
+}
+
+/*
+ **注册成功
+ */
+.success{
+    display: none;
+    margin-top: 1.89rem;
+    text-align: center;
+}
+.success img{
+    width: 2.01rem;
+    height: 2.01rem;
+}
+p{
+    text-align: center;
+    font-size:0.30rem;
+    font-family:PingFang-SC-Bold;
+    color:rgba(80,80,80,1);
+}
+p:nth-of-type(1){
+    margin-top: 0.5rem;
+}
+p:nth-of-type(2){
+    margin-top: 0.2rem;
+}
+p:nth-of-type(2) span{
+    color: #62A5FF;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+}
+.download{
+    margin: 1.34rem auto 0;
+    width:5.88rem;
+    height:0.88rem;
+    background:rgba(255,129,172,1);
+    border-radius: 10px;
+    font-size:0.36rem;
+    font-family:PingFang-SC-Bold;
+    color:rgba(255,255,255,1);
+    text-align: center;
+    line-height: 0.88rem;
+}
+
+
+@keyframes fade{
+    0%,100%{
+        opacity:0;
+        z-index: -100;
+    }
+    50%{
+        opacity:1;
+        z-index: 100;
+    }
+}
+
+@-webkit-keyframes fade{
+    0%,100%{
+        opacity:0;
+        z-index: -100;
+    }
+    50%{
+        opacity:1;
+        z-index: 100;
+    }
+}
+
+.fade{
+    animation:fade 2s ;/*infinite*/
+    -webkit-animation:fade 2s ;
+    -moz-animation:fade 2s ;
+    -o-animation:fade 2s ;
+    -ms-animation:fade 2s ;
+    animation-fill-mode:both;
+}
+body{
+    position: relative;
+}
+.tip_t{
+    padding:0.2rem 0.2rem;
+    font-size: 0.28rem;
+    background-color: darkgrey;
+    border-radius: 5px;
+    color:white;
+    text-align: center;
+    z-index: -100;
+    opacity: 0;
+    line-height: 0.4rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
