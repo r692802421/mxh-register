@@ -56,7 +56,7 @@
                     codeobj[temp[0]] = temp[1]
                 }
                 var Code = codeobj.code;
-                alert("code",Code);
+                alert("code", Code);
                 $.ajax({
                     type: "post",
                     async: false,
@@ -71,7 +71,7 @@
                         $.ajax({
                             type: "post",
                             async: false,
-                            url:"http://app.meibbc.com/BeautifyBreast/api/v1/user/getUser",
+                            url: "http://app.meibbc.com/BeautifyBreast/api/v1/user/getUser",
                             dataType: "json",
                             data: { wxid: qstr },
                             success: function (res) {

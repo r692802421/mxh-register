@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>手机注册成为美胸汇会员</title>
+    <title>QQ注册成为美胸汇会员</title>
     <link rel="stylesheet" href="css/resetCss.css">
     <link rel="stylesheet" href="css/phone_register.css">
     <script>
@@ -15,40 +15,34 @@
 </head>
 <body>
 <div class="wrap">
-    <div class="phone_wrap">
+    <div class="register">
         <div class="logo">
             <img src="icon/logo.png" alt="">
         </div>
         <div class="phone">
-            <select>
-                <option value ="+86">+86</option>
-            </select>
-            <input type="text" maxlength="11" placeholder="请输入手机号">
+            <input type="text"  placeholder="请输入邮箱">
         </div>
         <div class="verification">
             <div>
-                <input type="text" maxlength="4"  placeholder="请输入验证码" class="valCode">
+                <input type="text" maxlength="4" placeholder="请输入验证码" class="valCode">
             </div>
             <input type="button" class="time" value="获取验证码">
         </div>
 
         <div class="pwd">
-            <input type="password" style="ime-mode:disabled;" onkeyup="value=value.replace(/[\u4E00-\u9FA5]/g,'')" placeholder="请输入6-16位密码">
+            <input type="password" placeholder="请输入6-16位的密码" class="valCode" >
             <img src="icon/noeyes.png" alt="">
         </div>
         <h5>6-16位字符，可包含数字，字母（区分大小写）</h5>
         <h6>
-            <img src="icon/round.png" alt="">我已阅读并同意 <span><a href="agreement.html">《注册协议》</a></span>
+            <img src="icon/round.png" alt="">我已阅读并同意 <span><a href="agreement.htm">《注册协议》</a></span>
         </h6>
         <div class="btn_content">
-            <!--<input type="button" class="btn" value="确定" >-->
+            <!--  <input type="button" class="btn" value="确定" disabled>-->
             <div class="btn">确定</div>
             <div></div>
         </div>
-
     </div>
-
-
     <!--注册成功-->
 
     <div class="success">
@@ -56,13 +50,12 @@
             <img src="icon/success.png" alt="">
         </div>
         <p>恭喜您，账号注册成功啦！</p>
-        <p>亲爱的<span class="niceName">132465789</span>,欢迎您加入美胸汇</p>
+        <p>亲爱的<span class="niceName">132465789</span>,欢迎您!</p>
         <div class="download">
             立即下载APP
         </div>
     </div>
 </div>
-
 <!--提示框-->
 <div class="tip_t"></div>
 <script type="text/javascript">
@@ -78,58 +71,28 @@ if(invitation==null||invitation==''){
     var r = window.location.search.substr(1).match(reg);  //匹配目标参数
     if (r != null) return unescape(r[2]); return null; //返回参数值
 }
-
 </script>
 <script>
     $(function(){
-        // var codeUrl = "../../user-core/user/controller/UserController.html?behavior=checkPhoneSend";
         // var baseUrl ="http://testuser.meibbc.com/dev";
-        // var baseUrl ="http://192.168.0.42:8081/dev";
-        var baseUrl ="http://user.meibbc.com";
+        var baseUrl ="http://192.168.0.42:8081/dev";
+        // var codeUrl = "../../user-core/user/controller/UserController.html?behavior=checkPhoneSend";
         var codeUrl = baseUrl+"/api/v1/user/checkPhoneOrEmailNotExitSend";
-        // var requestUrl = "../../user-core/user/controller/UserController.html?behavior=registered";
-        var requestUrl = baseUrl+"/api/v1/user/phoneRegistered";
+        // var codeUrl = baseUrl+"/api/v1/user/checkPhoneOrEmail";
+        var requestUrl = baseUrl+"/api/v1/user/emailRegistered";
+        var reg = /^[0-9A-Za-z][\.-_0-9A-Za-z]*@[0-9A-Za-z]+(\.[0-9A-Za-z]+)+$/;
 
-       // var GojiPhoneList = "../../user-core/user/controller/UserController.html?behavior=GojiPhoneList";
-       var androidUrl ="http://a.app.qq.com/o/simple.jsp?pkgname=com.ruixing.bbc";
-       var iosUrl ="http://itunes.apple.com/app/id1168544548";
+        var androidUrl ="http://a.app.qq.com/o/simple.jsp?pkgname=com.ruixing.bbc";
+        var iosUrl ="http://itunes.apple.com/app/id1168544548";
 
-      	$(".download").click(function(){
-      	      var ua = navigator.userAgent.toLowerCase();
-      	      if (/iphone|ipad|ipod/.test(ua)) {
-      	         window.location.href = iosUrl;
-      	      } else if (/android/.test(ua)) {
-      	          window.location.href = androidUrl;
-      	      }
-      	 });
-
-        /*
-         *@ 获取国际标识列表
-
-        $.post(GojiPhoneList,{},function(result){
-            if(result.status == "1"){
-                var list=[];
-                var item_data = result.data.ybList;
-                for(var i=0;i<item_data.length;i++){
-                    var item = item_data[i].phonetype;
-
-                    if(item!="+86"){
-                        var html = '<option value ="'+item+'">'+item+'</option>';
-                        $("select").append(html);
-                    }
-
-                }
-                for(var j=0;j<result.data.cyList.length;j++){
-                    var it = item_data[j].phonetype;
-                    if(it!="+86"){
-                        var htm = '<option value ="'+it+'">'+it+'</option>';
-                        $("select").append(htm);
-                    }
-
-                }
-            }
-        });
-*/
+       	$(".download").click(function(){
+       	      var ua = navigator.userAgent.toLowerCase();
+       	      if (/iphone|ipad|ipod/.test(ua)) {
+       	         window.location.href = iosUrl;
+       	      } else if (/android/.test(ua)) {
+       	          window.location.href = androidUrl;
+       	      }
+       	 });
         /*
          *@ 自定义提示框
          */
@@ -166,20 +129,29 @@ if(invitation==null||invitation==''){
             settime(obj);
         }
         $(".time").click(function(){
-        	if(!(/^1[2|3|4|5|6|7|8|9][0-9]\d{4,8}$/.test($(".phone input").val()))){
-                tip("请输入正确的手机号");
+            var number = $(".phone input").val();
+			if(number==''||number==null){
+				tip("请输入邮箱");
+				return;
+			}
+            if(!reg.test(number)){
+                tip("请输入正确邮箱");
             }else {
-                $.post(codeUrl,
-                		{
-                		phone:$(".phone input").val(),internationaltype:"+86"},function(result){
-                	console.log(result);
+                var em ={
+                    email:$(".phone input").val(),
+                    istrue:true
+                };
+                console.log(123);
+                $.post(codeUrl,em,function(result){
+                    console.log("houtai");
+                    
                     if(result.status!=-1){
-                    	// console.log(result.msg);
-                       tip(result.msg);
-                        sendemail();
-                    }else {
                         tip(result.msg);
-                        // console.log(222);
+                        sendemail();
+                    }else if(result.status==-1){
+                    	tip(result.msg);
+                    } else{
+                        tip("网络错误请重试！");
                     }
                 });
 
@@ -217,60 +189,56 @@ if(invitation==null||invitation==''){
             }
         });
 
+
         /*
          *@确认注册
          */
         $(".btn").click(function(){
-        	if(!(/^1[2|3|4|5|7|8|9][0-9]\d{4,8}$/.test($(".phone input").val()))){
-                tip("不是正确手机号")
+            if(!reg.test($(".phone input").val())){
+                tip("邮箱地址不正确！")
             }else {
-                if($(".valCode").val()==''||$(".valCode").val()==null||$(".valCode").val().length!=4){
+            	if($(".valCode").val()==''||$(".valCode").val()==null||$(".valCode").val().length!=4){
                 	if($(".valCode").val()==''||$(".valCode").val()==null){
                 		 tip("请输入验证码");
                 	}else{
                 		 tip("验证码只有4位");
                 	}
-
                 }else {
                     if($(".pwd input").val().length<6||$(".pwd input").val().length>16){
-                        tip("密码必须在6-16位");
+                        tip("密码必须6-16位以内");
                     }else {
                     	if(invitation!=null&&invitation!=''){
-                    		var data={
-                                    phone:$(".phone input").val(),
-                                    password:$(".pwd input").val(),
-                                    code:$(".valCode").val(),
-                                    internationaltype:$("select").val(),
-                                    invitation:invitation
-                                };
-                                $.post(requestUrl,data,function(result){
-                                    // console.log(result);
-                                    
-                                    if(result.status == "1"){
-                                        $(".phone_wrap").css({"display":"none"});
-                                        var str = $(".phone input").val();
-                                        var strOne = str.substring(0,3);
-                                        var strTwo = str.substring(7);
-                                        str = strOne+"****"+strTwo;
-                                        $(".niceName").html(str);
-                                        $(".success").css({"display":"block"});
-                                    }else {
-                                        tip(result.msg);
-                                    }
-                                });
-                    	}else{
-                            alert("您的邀请码为空");
-                            console.log(222);
-                    	}
+                        var data={
+                            email:$(".phone input").val(),
+                            password:$(".pwd input").val(),
+                            code:$(".valCode").val(),
+                            invitation:invitation
+                        };
+                        $.post(requestUrl,data,function(result){
+                            console.log(result);
+                            
+                            if(result.status == "1"){
+                                $(".register").css({"display":"none"});
+                                var str = $(".phone input").val();
+                                var strOne = str.substring(0,3);
+                                var strTwo = str.substring(7);
+                                str = strOne+"****"+strTwo;
+                                $(".niceName").html(str);
+                                $(".success").css({"display":"block"});
+                            }else {
+                                tip(result.msg);
+                            }
+                        });
+                     }else{
+                    	 alert('您的邀请码为空');
+                     }
                     }
                 }
 
             }
 
         });
-
-
-    });
+    })
 </script>
 <script>
     window.onload = function (ev) {
